@@ -1,0 +1,39 @@
+#messages {
+    height: 300px;
+    overflow-y: scroll;
+    font-family: monospace;
+}
+.message .timestamp,
+.message .username,
+.message .text {
+    display: inline-block;
+}
+
+.message .timestamp {
+    width:8em;
+    text-align: right;
+    color: #a88;
+}
+
+.message .username {
+    width:8em;
+    color: #999;
+    text-align: right;
+    padding-right: 0.4em;
+}
+
+.message.own .username {
+    color: #d99;
+}
+
+.message.mention .text {
+    font-weight: bold;
+}
+
+.message .username::after {
+    content:':';
+}
+
+#room {
+    display: none;
+}

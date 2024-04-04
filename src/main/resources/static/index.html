@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Demo chat</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="description" content="a demo chat room"/>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+<body>
+
+<select id="chatroomSelect">
+    <option value="" selected>Select a chatroom...</option>
+</select>
+
+<div id="room">
+    <h1 id="roomName"></h1>
+    <div id="messages"></div>
+    <input type="text" id="usernameInput" placeholder="Type your nickname...">
+    <input type="text" id="messageInput" placeholder="Type your message...">
+    <button id="sendButton">Send</button>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"
+        integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="app.js"></script>
+</body>
+</html>
