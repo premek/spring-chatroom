@@ -1,9 +1,6 @@
 package net.vyhnal.demo.message;
 
-import net.vyhnal.demo.message.MessageDto;
-import net.vyhnal.demo.message.MessageEntity;
-import net.vyhnal.demo.message.MessageMapper;
-import net.vyhnal.demo.message.MessageService;
+import net.vyhnal.demo.weather.WeatherBotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,12 +21,23 @@ public class MessageController {
     private MessageMapper messageMapper;
     @Autowired
     private MessageService messageService;
+    @Autowired
+    private WeatherBotService weatherBotService;
 
     @PostMapping("/rooms/{room}/messages")
     public void sendMessage(@PathVariable String room, @RequestBody MessageDto message) {
+        MessageDto savedDto = saveAndBroadcast(room, message);
+
+        weatherBotService.respond(savedDto).ifPresent(botMessage -> {
+            saveAndBroadcast(room, botMessage);
+        });
+    }
+
+    private MessageDto saveAndBroadcast(String room, MessageDto message) {
         MessageEntity savedEntity = messageService.saveMessage(message, room);
         MessageDto savedDto = messageMapper.entityToDto(savedEntity);
         websocket.convertAndSend("/topic/" + room, savedDto);
+        return savedDto;
     }
 
     @GetMapping("/rooms/{room}/messages")

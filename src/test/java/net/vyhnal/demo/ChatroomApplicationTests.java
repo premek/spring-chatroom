@@ -52,14 +52,14 @@ public class ChatroomApplicationTests {
     }
 
     private void insertMessage(MessageDto message) {
-        var resp = rest.postForEntity("/api/v1/messages/music", message, Object.class);
+        var resp = rest.postForEntity("/api/v1/rooms/music/messages", message, Object.class);
         assertThat(resp.getStatusCode()).isEqualTo(HttpStatus.OK);
 
     }
 
     private void assertMessages(List<MessageDto> expected) {
         var resp = rest.exchange(
-                "/api/v1/messages/music",
+                "/api/v1/rooms/music/messages",
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<MessageDto>>() {
